@@ -1,0 +1,77 @@
+#include <iostream>
+#include <queue>
+
+using namespace std;
+
+class node{
+    public:
+    int data;
+    node* left;
+    node* right;
+
+    node (int data){
+        this->data = data;
+        left = right = nullptr;
+    }
+};
+
+
+node* build_by_level_order (node* root) {
+    queue<node*> q;
+
+    int data;
+    cout << "Enter data for root: ";
+    cin >> data;
+    root = new node(data);
+    q.push(root);
+
+    while (!q.empty()) {
+        node* temp = q.front();
+        q.pop();
+
+        int leftnode;
+        cout << "Enter data for left node of " << temp->data << endl;
+        cin >> leftnode;
+
+        if (leftnode != -1) {
+            temp->left = new node(leftnode);
+            q.push(temp->left);
+        }
+
+        int rightnode;
+        cout << "Enter data for right node of " << temp->data << endl;
+        cin >> rightnode;
+
+        if (rightnode != -1) {
+            temp->right = new node(rightnode);
+            q.push(temp->right);
+        }
+
+    }
+    return root;
+}
+
+
+void preorder(node* root) {
+    if (root == nullptr){
+        return;
+    } 
+
+    cout << root->data << " ";
+    preorder(root->left);
+    preorder(root->right);
+
+}
+
+int main()
+{
+    node* root = nullptr;
+    root = build_by_level_order(root);
+
+    cout << "Preorder traversal of tree is: ";
+    preorder(root);
+    
+
+
+    return 0;
+}
