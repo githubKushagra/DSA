@@ -1,0 +1,62 @@
+#include <iostream>
+#include <iomanip>
+#include <string>
+#include <cmath>
+#include <stack>
+
+using namespace std;
+
+class node{
+    public:
+    int data;
+    node* left;
+    node* right;
+
+    node (int data){
+        this->data = data;
+        left = right = nullptr;
+    }
+};
+
+
+node* binaryTree (node* root) {
+    int data;
+    cout << "Enter data: ";
+    cin >> data;
+    root = new node(data);
+
+    if (data == -1) { 
+        return NULL;
+    }
+
+    cout << "Enter data for inserting in left of " << data << endl;
+    root->left = binaryTree(root->left);
+    cout << "Enter data for inserting in right of " << data << endl;
+    root->right = binaryTree(root->right);
+
+    return root;
+}
+
+
+void preorder(node* root) {
+    if (root == nullptr){
+        return;
+    } 
+
+    cout << root->data << " ";
+    preorder(root->left);
+    preorder(root->right);
+}
+  
+
+int main()
+{
+    node* root = nullptr;
+    root = binaryTree(root);
+
+    cout << "Preorder of tree is: ";
+    preorder(root);
+    
+
+    return 0;
+}
